@@ -69,7 +69,7 @@ export const SelectableTable: FC<SelectableTableProps> = ({
           className={getTableCellClassNames(active, cell.disabled)}
           key={cellIndex}
         >
-          {cell.id}
+          {cell.content}
         </li>
       );
     });
@@ -78,7 +78,6 @@ export const SelectableTable: FC<SelectableTableProps> = ({
     tableData.map((row, rowIndex) => (
       <ul
         className={styles.tableRow}
-        style={{ gridTemplateColumns: `repeat(${totalColumns}, 1fr)` }}
         key={rowIndex}
       >
         {getTableCell(row, rowIndex)}

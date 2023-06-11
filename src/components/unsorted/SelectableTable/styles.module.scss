@@ -1,10 +1,16 @@
 .table {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: grey;
 }
 
 .tableRow {
   margin: 0;
   padding: 0;
-  display: grid;
+  display: flex;
+  gap: 8px;
 }
 
 .tableCell {
@@ -12,10 +18,13 @@
 }
 
 .tableCellActive {
-  color: green;
-  border: 1px solid green;
+  outline: 8px solid #00de00;
 }
 
 .tableCellDisabled {
-  background-color: grey;
+  border-color: transparent;
+  background-color: black !important;
+  & img {
+    opacity: 0.2;
+  }
 }

@@ -1,6 +1,8 @@
+import { ReactNode } from 'react';
+
 export type TableCell = {
   id: string | number;
-  icon: string;
+  content: ReactNode;
   disabled?: boolean;
 };
 
