@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'mk4';
+  src: local('mk4'), url('./assets/fonts/mk4.ttf') format('truetype');
+  font-weight: bold;
+}
+
+body,
+html {
+  font-family: 'mk4';
+}

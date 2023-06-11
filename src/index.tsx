@@ -1,5 +1,6 @@
 import 'normalize.css';
 import './index.scss';
+import './assets/fonts/mk4.ttf';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
