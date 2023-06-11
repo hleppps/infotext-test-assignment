@@ -1,3 +1,5 @@
+@import '/src/assets/styles/palette.scss';
+
 .table {
   padding: 8px;
   display: flex;
@@ -14,17 +16,17 @@
 
 .tableCell {
   list-style-type: none;
-  outline: 1px solid #BABABA;
+  outline: 1px solid $lightGrey;
 }
 
 .tableCellActive {
   position: relative;
   z-index: 10;
-  outline: 9px solid #00de00;
+  outline: 9px solid $lime;
 }
 
 .tableCellDisabled {
-  background-color: black !important;
+  background-color: $black !important;
   & img {
     opacity: 0.2;
   }
