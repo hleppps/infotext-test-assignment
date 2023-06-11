@@ -4,3 +4,9 @@ export type Character = {
   iconSrc: string;
   disabled?: boolean;
 };
+
+export type Player = {
+  number: number;
+  character: Character | null;
+  selecting: boolean;
+};

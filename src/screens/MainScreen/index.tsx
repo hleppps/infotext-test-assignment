@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useContext, useMemo, useState } from 'react';
 
 import { CharacterTile } from '../../components/unsorted/CharacterTile';
 import { SelectableTable } from '../../components/unsorted/SelectableTable';
@@ -6,6 +6,7 @@ import {
   TableCell,
   TableCellCoordinates,
 } from '../../components/unsorted/SelectableTable/types';
+import { PlayersContext } from '../../context/playersContext';
 import { arrayToMatrix } from '../../utils/arrayToMatrix';
 import { dummyCharacters } from '../../utils/dummyCharacters';
 import styles from './styles.module.scss';
@@ -17,6 +18,8 @@ const defaultSelectedTableCell: TableCellCoordinates = {
 
 export const MainScreen: FC = () => {
   const columns = 5;
+
+  const { players } = useContext(PlayersContext);
 
   const [selectedTableCell, setSelectedTableCell] = useState(
     defaultSelectedTableCell,
