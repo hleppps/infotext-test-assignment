@@ -12,3 +12,7 @@ export const routes: RouteObject[] = [
   { path: '/versus', element: <VersusScreen /> },
   { path: '*', element: <NotFoundScreen /> },
 ];
+
+export enum HotkeysScopes {
+  TABLE = 'table',
+}
