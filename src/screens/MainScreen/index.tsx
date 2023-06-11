@@ -8,6 +8,7 @@ import {
 } from '../../components/unsorted/SelectableTable/types';
 import { arrayToMatrix } from '../../utils/arrayToMatrix';
 import { dummyCharacters } from '../../utils/dummyCharacters';
+import styles from './styles.module.scss';
 
 const defaultSelectedTableCell: TableCellCoordinates = {
   rowIndex: 0,
@@ -33,9 +34,9 @@ export const MainScreen: FC = () => {
   }, [dummyCharacters, columns]);
 
   return (
-    <div>
-      <h1>Select your fighter</h1>
-      <div>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Select your fighter</h1>
+      <div className={styles.content}>
         <div>Left character</div>
         <SelectableTable
           data={charactersMatrix}

@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  text-transform: uppercase;
+  font-style: italic;
+  color: white;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
