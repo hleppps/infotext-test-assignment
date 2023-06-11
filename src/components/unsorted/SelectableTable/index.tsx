@@ -11,12 +11,14 @@ export interface SelectableTableProps {
   columns: number;
   data: TableCell[][];
   defaultActiveTile: TableCellCoordinates;
+  selectCell: (cellCoordinates: TableCellCoordinates) => void;
 }
 
 export const SelectableTable: FC<SelectableTableProps> = ({
   data,
   columns: totalColumns,
   defaultActiveTile,
+  selectCell,
 }) => {
   const [activeTableTile, setActiveTableTile] = useState(defaultActiveTile);
 
@@ -42,6 +44,10 @@ export const SelectableTable: FC<SelectableTableProps> = ({
       return { rowIndex: updatedRowIndex, cellIndex: updatedCellIndex };
     });
   };
+
+  useTableHotKeys(Key.Enter, () => {
+    selectCell(activeTableTile);
+  });
 
   useTableHotKeys(Key.ArrowUp, () => {
     handleChangeActiveTile({ rowDelta: -1 });
@@ -76,10 +82,7 @@ export const SelectableTable: FC<SelectableTableProps> = ({
 
   const getTableContent = (tableData: TableCell[][]) =>
     tableData.map((row, rowIndex) => (
-      <ul
-        className={styles.tableRow}
-        key={rowIndex}
-      >
+      <ul className={styles.tableRow} key={rowIndex}>
         {getTableCell(row, rowIndex)}
       </ul>
     ));

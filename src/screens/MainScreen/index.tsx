@@ -19,12 +19,6 @@ const defaultSelectedTableCell: TableCellCoordinates = {
 export const MainScreen: FC = () => {
   const columns = 5;
 
-  const { players } = useContext(PlayersContext);
-
-  const [selectedTableCell, setSelectedTableCell] = useState(
-    defaultSelectedTableCell,
-  );
-
   const charactersMatrix: TableCell[][] = useMemo(() => {
     const tableCells: TableCell[] = dummyCharacters.map(
       ({ id, iconSrc, disabled }) => ({
@@ -36,6 +30,16 @@ export const MainScreen: FC = () => {
     return arrayToMatrix(tableCells, columns);
   }, [dummyCharacters, columns]);
 
+  const handleSelectCell = (selectedTableCell: TableCellCoordinates) => {
+    const selectedCharacter = selectedTableCell
+      ? charactersMatrix[selectedTableCell.rowIndex][
+          selectedTableCell.cellIndex
+        ]
+      : undefined;
+
+    console.log(selectedCharacter);
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Select your fighter</h1>
@@ -45,6 +49,7 @@ export const MainScreen: FC = () => {
           data={charactersMatrix}
           columns={columns}
           defaultActiveTile={defaultSelectedTableCell}
+          selectCell={handleSelectCell}
         />
         <div>Right character</div>
       </div>
