@@ -1,0 +1,21 @@
+.table {
+}
+
+.tableRow {
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.tableCell {
+  list-style-type: none;
+}
+
+.tableCellActive {
+  color: green;
+  border: 1px solid green;
+}
+
+.tableCellDisabled {
+  background-color: grey;
+}
