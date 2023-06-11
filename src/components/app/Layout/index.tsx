@@ -7,5 +7,9 @@ export interface LayoutProps {
 }
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
-  return <div className={styles.layout}>{children}</div>;
+  return (
+    <div className={styles.layout}>
+      <div className={styles.content}>{children}</div>
+    </div>
+  );
 };
