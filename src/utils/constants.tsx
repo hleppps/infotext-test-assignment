@@ -4,12 +4,17 @@ import { MainScreen } from '../screens/MainScreen';
 import { NotFoundScreen } from '../screens/NotFoundScreen';
 import { VersusScreen } from '../screens/VersusScreen';
 
+export enum Paths {
+  HOME = '/',
+  VERSUS = '/versus',
+}
+
 export const routes: RouteObject[] = [
   {
-    path: '/',
+    path: Paths.HOME,
     element: <MainScreen />,
   },
-  { path: '/versus', element: <VersusScreen /> },
+  { path: Paths.VERSUS, element: <VersusScreen /> },
   { path: '*', element: <NotFoundScreen /> },
 ];
 
