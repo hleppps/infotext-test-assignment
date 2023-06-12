@@ -21,3 +21,7 @@ export const routes: RouteObject[] = [
 export enum HotkeysScopes {
   TABLE = 'table',
 }
+
+export enum Endpoints {
+  GET_CHARACTERS = '/characters',
+}

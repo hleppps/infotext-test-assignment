@@ -9,6 +9,7 @@ import {
   TableCell,
   TableCellCoordinates,
 } from '../../components/unsorted/SelectableTable/types';
+import { getCharacters } from '../../utils/api/characterService';
 import { arrayToMatrix } from '../../utils/arrayToMatrix';
 import styles from './styles.module.scss';
 
@@ -22,14 +23,9 @@ export const MainScreen: FC = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
 
   useEffect(() => {
-    fetch('/api/characters')
-      .then((res) => res.json())
-      .then((data) => {
-        setCharacters(data.items);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    getCharacters().then((fetchedCharacters) => {
+      setCharacters(fetchedCharacters);
+    });
   }, []);
 
   const charactersMatrix: TableCell[][] = useMemo(() => {
