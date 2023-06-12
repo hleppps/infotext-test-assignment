@@ -1,7 +1,6 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 
 import { Character } from '../../../types/global';
-import pedestalImage from '../../assets/images/pedestal.png';
 import { Spinner } from '../../components/ui/Spinner';
 import { CharacterTile } from '../../components/unsorted/CharacterTile';
 import { SelectableTable } from '../../components/unsorted/SelectableTable';
@@ -9,6 +8,7 @@ import {
   TableCell,
   TableCellCoordinates,
 } from '../../components/unsorted/SelectableTable/types';
+import { SelectedCharacterSection } from '../../components/unsorted/SelectedCharacterSection';
 import { getCharacters } from '../../utils/api/characterService';
 import { arrayToMatrix } from '../../utils/arrayToMatrix';
 import styles from './styles.module.scss';
@@ -57,16 +57,26 @@ export const MainScreen: FC = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>Select your fighter</h1>
       <div className={styles.content}>
-        <div>
-          <img src={pedestalImage} alt="Pedestal" />
-        </div>
+        <SelectedCharacterSection
+          title="Player 1"
+          character={{
+            imageSrc: characters[0].iconSrc,
+            name: characters[0].name,
+          }}
+        />
         <SelectableTable
           data={charactersMatrix}
           columns={columns}
           defaultActiveTile={defaultSelectedTableCell}
           selectCell={handleSelectCell}
         />
-        <div>Right character</div>
+        <SelectedCharacterSection
+          title="Player 2"
+          // character={{
+          //   imageSrc: characters[10].iconSrc,
+          //   name: characters[10].name,
+          // }}
+        />
       </div>
       <h2 className={styles.modeName}>Kombat zone: soul chamber</h2>
     </div>
