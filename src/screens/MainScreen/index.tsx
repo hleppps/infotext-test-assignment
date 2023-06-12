@@ -61,7 +61,7 @@ export const MainScreen: FC = () => {
       <h1 className={styles.title}>Select your fighter</h1>
       <div className={styles.content}>
         <div>
-          <img src={pedestalImage} alt="" />
+          <img src={pedestalImage} alt="Pedestal" />
         </div>
         <SelectableTable
           data={charactersMatrix}
