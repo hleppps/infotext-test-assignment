@@ -18,6 +18,7 @@ import character16 from '../assets/images/character-16.png';
 import character17 from '../assets/images/character-17.png';
 import character18 from '../assets/images/character-18.png';
 import character19 from '../assets/images/character-19.png';
+import character20 from '../assets/images/character-20.png';
 
 export const dummyCharacters: Character[] = [
   {
@@ -115,5 +116,10 @@ export const dummyCharacters: Character[] = [
     id: 19,
     name: 'Character 19',
     iconSrc: character19,
+  },
+  {
+    id: 20,
+    name: 'Character 20',
+    iconSrc: character20,
   },
 ];

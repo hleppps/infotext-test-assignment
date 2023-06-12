@@ -1,14 +1,14 @@
-import { FC, useContext, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 
+import { Character } from '../../../types/global';
+import pedestalImage from '../../assets/images/pedestal.png';
 import { CharacterTile } from '../../components/unsorted/CharacterTile';
 import { SelectableTable } from '../../components/unsorted/SelectableTable';
 import {
   TableCell,
   TableCellCoordinates,
 } from '../../components/unsorted/SelectableTable/types';
-import { PlayersContext } from '../../context/playersContext';
 import { arrayToMatrix } from '../../utils/arrayToMatrix';
-import { dummyCharacters } from '../../utils/dummyCharacters';
 import styles from './styles.module.scss';
 
 const defaultSelectedTableCell: TableCellCoordinates = {
@@ -18,9 +18,21 @@ const defaultSelectedTableCell: TableCellCoordinates = {
 
 export const MainScreen: FC = () => {
   const columns = 5;
+  const [characters, setCharacters] = useState<Character[]>([]);
+
+  useEffect(() => {
+    fetch('/api/characters')
+      .then((res) => res.json())
+      .then((data) => {
+        setCharacters(data.items);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const charactersMatrix: TableCell[][] = useMemo(() => {
-    const tableCells: TableCell[] = dummyCharacters.map(
+    const tableCells: TableCell[] = characters.map(
       ({ id, iconSrc, disabled }) => ({
         id,
         ...(disabled ? { disabled } : {}),
@@ -28,7 +40,7 @@ export const MainScreen: FC = () => {
       }),
     );
     return arrayToMatrix(tableCells, columns);
-  }, [dummyCharacters, columns]);
+  }, [characters, columns]);
 
   const handleSelectCell = (selectedTableCell: TableCellCoordinates) => {
     const selectedCharacter = selectedTableCell
@@ -40,11 +52,17 @@ export const MainScreen: FC = () => {
     console.log(selectedCharacter);
   };
 
+  if (!charactersMatrix || !charactersMatrix.length) {
+    return <h1 style={{ color: 'white' }}>Loading...</h1>;
+  }
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Select your fighter</h1>
       <div className={styles.content}>
-        <div>Left character</div>
+        <div>
+          <img src={pedestalImage} alt="" />
+        </div>
         <SelectableTable
           data={charactersMatrix}
           columns={columns}
@@ -53,7 +71,7 @@ export const MainScreen: FC = () => {
         />
         <div>Right character</div>
       </div>
-      <div>Kombat zone: soul chamber</div>
+      <h2 className={styles.modeName}>Kombat zone: soul chamber</h2>
     </div>
   );
 };
