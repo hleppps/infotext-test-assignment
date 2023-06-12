@@ -6,7 +6,6 @@ export type Character = {
 };
 
 export type Player = {
-  number: number;
+  id: number | string;
   character: Character | null;
-  selecting: boolean;
 };

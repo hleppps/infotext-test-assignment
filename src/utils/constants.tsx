@@ -23,5 +23,8 @@ export enum HotkeysScopes {
 }
 
 export enum Endpoints {
-  GET_CHARACTERS = '/characters',
+  CHARACTERS = '/characters',
+  PLAYERS = '/players',
 }
+
+export const MAXIMUM_PLAYERS = 2;

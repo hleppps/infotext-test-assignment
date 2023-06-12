@@ -1,4 +1,5 @@
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useContext, useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Character } from '../../../types/global';
 import { Spinner } from '../../components/ui/Spinner';
@@ -9,8 +10,10 @@ import {
   TableCellCoordinates,
 } from '../../components/unsorted/SelectableTable/types';
 import { SelectedCharacterSection } from '../../components/unsorted/SelectedCharacterSection';
+import { PlayersContext } from '../../context/playersContext';
 import { getCharacters } from '../../utils/api/characterService';
 import { arrayToMatrix } from '../../utils/arrayToMatrix';
+import { Paths } from '../../utils/constants';
 import styles from './styles.module.scss';
 
 const defaultSelectedTableCell: TableCellCoordinates = {
@@ -20,7 +23,10 @@ const defaultSelectedTableCell: TableCellCoordinates = {
 
 export const MainScreen: FC = () => {
   const columns = 5;
+  const navigate = useNavigate();
   const [characters, setCharacters] = useState<Character[]>([]);
+  const { activePlayer, players, handleSelectCharacter, charactersSelected } =
+    useContext(PlayersContext);
 
   useEffect(() => {
     getCharacters().then((fetchedCharacters) => {
@@ -40,14 +46,23 @@ export const MainScreen: FC = () => {
   }, [characters, columns]);
 
   const handleSelectCell = (selectedTableCell: TableCellCoordinates) => {
-    const selectedCharacter = selectedTableCell
-      ? charactersMatrix[selectedTableCell.rowIndex][
-          selectedTableCell.cellIndex
-        ]
-      : undefined;
+    const selectedCharacterIndex =
+      selectedTableCell.rowIndex * (charactersMatrix.length + 1) +
+      selectedTableCell.cellIndex;
+    const selectedCharacter = characters[selectedCharacterIndex];
 
-    console.log(selectedCharacter);
+    if (selectedCharacter) {
+      handleSelectCharacter(selectedCharacter);
+    }
   };
+
+  useEffect(() => {
+    if (charactersSelected) {
+      // setTimeout(() => {
+      //   navigate(Paths.VERSUS);
+      // }, 2000);
+    }
+  }, [charactersSelected]);
 
   if (!charactersMatrix || !charactersMatrix.length) {
     return <Spinner />;
@@ -55,13 +70,22 @@ export const MainScreen: FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Select your fighter</h1>
+      {/* <h1 className={styles.title}>Select your fighter</h1> */}
+      <button
+        onClick={() => {
+          localStorage.removeItem('players');
+        }}
+      >
+        Reset players
+      </button>
+      <h1 className={styles.title}>{players.length}</h1>
+      <h1 className={styles.title}>{activePlayer?.id}</h1>
       <div className={styles.content}>
         <SelectedCharacterSection
           title="Player 1"
           character={{
-            imageSrc: characters[0].iconSrc,
-            name: characters[0].name,
+            imageSrc: players[0]?.character?.iconSrc,
+            name: players[0]?.character?.name,
           }}
         />
         <SelectableTable
@@ -72,10 +96,10 @@ export const MainScreen: FC = () => {
         />
         <SelectedCharacterSection
           title="Player 2"
-          // character={{
-          //   imageSrc: characters[10].iconSrc,
-          //   name: characters[10].name,
-          // }}
+          character={{
+            imageSrc: players[1]?.character?.iconSrc,
+            name: players[1]?.character?.name,
+          }}
         />
       </div>
       <h2 className={styles.modeName}>Kombat zone: soul chamber</h2>

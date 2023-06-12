@@ -12,6 +12,7 @@ export interface SelectableTableProps {
   data: TableCell[][];
   defaultActiveTile: TableCellCoordinates;
   selectCell: (cellCoordinates: TableCellCoordinates) => void;
+  selectable?: boolean;
 }
 
 export const SelectableTable: FC<SelectableTableProps> = ({
@@ -19,6 +20,7 @@ export const SelectableTable: FC<SelectableTableProps> = ({
   columns: totalColumns,
   defaultActiveTile,
   selectCell,
+  selectable = true,
 }) => {
   const [activeTableTile, setActiveTableTile] = useState(defaultActiveTile);
 
