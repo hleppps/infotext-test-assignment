@@ -7,9 +7,9 @@ import ReactDOM from 'react-dom/client';
 
 import { App } from './components/app/App';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { worker } = require('./mocks/browser');
-worker.start({ onUnhandledRequest: 'bypass' });
+await import('./mocks/browser')
+  .then(({ worker }) => worker.start({ onUnhandledRequest: 'bypass' }))
+  .catch(console.error);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
