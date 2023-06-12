@@ -2,6 +2,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 
 import { Character } from '../../../types/global';
 import pedestalImage from '../../assets/images/pedestal.png';
+import { Spinner } from '../../components/ui/Spinner';
 import { CharacterTile } from '../../components/unsorted/CharacterTile';
 import { SelectableTable } from '../../components/unsorted/SelectableTable';
 import {
@@ -53,7 +54,7 @@ export const MainScreen: FC = () => {
   };
 
   if (!charactersMatrix || !charactersMatrix.length) {
-    return <h1 style={{ color: 'white' }}>Loading...</h1>;
+    return <Spinner />;
   }
 
   return (
