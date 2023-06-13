@@ -1,0 +1,21 @@
+@import '/src/assets/styles/palette.scss';
+
+.table {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+.tableCell {
+  border: 1px solid $grey;
+  width: 60px;
+  height: 60px;
+
+  & img {
+    width: 100%;
+    height: 100%;
+  }
+}
+

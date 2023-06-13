@@ -3,10 +3,14 @@ import { rest, setupWorker } from 'msw';
 import { Player } from '../../types/global';
 import { Endpoints } from '../utils/constants';
 import { dummyCharacters } from '../utils/dummyCharacters';
+import { dummyVersusCodes } from '../utils/dummyVersusCodes';
 import { parseStringifiedArrayOfObjects } from '../utils/parseStringifiedArrayOfObjects';
 import { updatePlayers } from '../utils/updatePlayers';
 
 const handlers = [
+  rest.get(Endpoints.VERSUS_CODES, (req, res, ctx) => {
+    return res(ctx.json({ items: dummyVersusCodes }));
+  }),
   rest.get(Endpoints.CHARACTERS, (req, res, ctx) => {
     return res(ctx.json({ items: dummyCharacters }));
   }),

@@ -9,3 +9,9 @@ export type Player = {
   id: number | string;
   character: Character | null;
 };
+
+export type VersusCode = {
+  id: number | string;
+  name: string;
+  iconSrc: string;
+};

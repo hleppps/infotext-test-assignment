@@ -25,6 +25,7 @@ export enum HotkeysScopes {
 export enum Endpoints {
   CHARACTERS = '/characters',
   PLAYERS = '/players',
+  VERSUS_CODES = '/versus_codes'
 }
 
 export enum Colors {

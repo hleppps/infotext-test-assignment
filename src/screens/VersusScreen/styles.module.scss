@@ -1,0 +1,39 @@
+@import '/src/assets/styles/palette.scss';
+
+.container {
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: 56px;
+  color: $white;
+  margin: 0;
+}
+
+.subtitle {
+  text-transform: uppercase;
+  font-style: italic;
+  font-size: 36px;
+  text-decoration: underline;
+  color: $white;
+  margin: 0;
+}
+
+.content {
+  margin-top: 36px;
+  display: flex;
+  gap: 32px;
+}
+
+.versusCodeSelector {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
