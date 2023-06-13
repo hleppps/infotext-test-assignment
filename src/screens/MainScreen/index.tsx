@@ -13,7 +13,7 @@ import { SelectedCharacterSection } from '../../components/unsorted/SelectedChar
 import { PlayersContext } from '../../context/playersContext';
 import { getCharacters } from '../../utils/api/characterService';
 import { arrayToMatrix } from '../../utils/arrayToMatrix';
-import { Paths } from '../../utils/constants';
+import { Colors, Paths } from '../../utils/constants';
 import styles from './styles.module.scss';
 
 const defaultSelectedTableCell: TableCellCoordinates = {
@@ -27,6 +27,11 @@ export const MainScreen: FC = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
   const { activePlayer, players, handleSelectCharacter, charactersSelected } =
     useContext(PlayersContext);
+
+  const activePlayerIndex = useMemo(
+    () => players.findIndex((player) => player.id === activePlayer?.id),
+    [players, activePlayer],
+  );
 
   useEffect(() => {
     getCharacters().then((fetchedCharacters) => {
@@ -56,6 +61,16 @@ export const MainScreen: FC = () => {
     }
   };
 
+  const getSelectionColor = (playerIndex: number) => {
+    if (playerIndex === 0) {
+      return Colors.LIME;
+    }
+    if (playerIndex === 1) {
+      return Colors.RED;
+    }
+    return '';
+  };
+
   useEffect(() => {
     if (charactersSelected) {
       // setTimeout(() => {
@@ -64,7 +79,10 @@ export const MainScreen: FC = () => {
     }
   }, [charactersSelected]);
 
-  if (!charactersMatrix || !charactersMatrix.length) {
+  // TODO: temp solution
+  const dataLoading = players.length === 0 && !activePlayer;
+
+  if (!charactersMatrix || !charactersMatrix.length || dataLoading) {
     return <Spinner />;
   }
 
@@ -93,6 +111,7 @@ export const MainScreen: FC = () => {
           columns={columns}
           defaultActiveTile={defaultSelectedTableCell}
           selectCell={handleSelectCell}
+          selectionColor={getSelectionColor(activePlayerIndex)}
         />
         <SelectedCharacterSection
           title="Player 2"

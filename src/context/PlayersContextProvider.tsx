@@ -1,17 +1,11 @@
-import {
-  FC,
-  ReactNode,
-  useEffect,
-  useMemo,
-  useState
-} from 'react';
+import { FC, ReactNode, useEffect, useMemo, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import { Character, Player } from '../../types/global';
 import { getPlayers, postPlayer } from '../utils/api/playerService';
 import { MAXIMUM_PLAYERS } from '../utils/constants';
 import { parseStringifiedArrayOfObjects } from '../utils/parseStringifiedArrayOfObjects';
-import { initialPlayersContextState,PlayersContext } from './playersContext';
+import { initialPlayersContextState, PlayersContext } from './playersContext';
 import { PlayersContext as PlayersContextType } from './types';
 
 export type PlayersContextProviderProps = {

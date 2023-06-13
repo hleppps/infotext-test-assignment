@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import { Key } from 'ts-key-enum';
 
 import { useTableHotKeys } from '../../../hooks/useTableHotKeys';
@@ -12,7 +12,7 @@ export interface SelectableTableProps {
   data: TableCell[][];
   defaultActiveTile: TableCellCoordinates;
   selectCell: (cellCoordinates: TableCellCoordinates) => void;
-  selectable?: boolean;
+  selectionColor: string;
 }
 
 export const SelectableTable: FC<SelectableTableProps> = ({
@@ -20,35 +20,43 @@ export const SelectableTable: FC<SelectableTableProps> = ({
   columns: totalColumns,
   defaultActiveTile,
   selectCell,
-  selectable = true,
+  selectionColor,
 }) => {
   const [activeTableTile, setActiveTableTile] = useState(defaultActiveTile);
+  const selectable = useMemo(() => selectionColor !== '', [selectionColor]);
 
   const totalRows = useMemo(() => data.length, [data]);
 
-  const handleChangeActiveTile = ({
-    rowDelta,
-    cellDelta,
-  }: {
-    rowDelta?: TableCellChangeDelta;
-    cellDelta?: TableCellChangeDelta;
-  }) => {
-    setActiveTableTile((currentActiveTile) => {
-      const { updatedRowIndex, updatedCellIndex } = getUpdatedActiveTile(
-        currentActiveTile,
-        {
-          rowDelta,
-          cellDelta,
-        },
-        { data, totalRows, totalColumns },
-      );
+  const handleChangeActiveTile = useCallback(
+    ({
+      rowDelta,
+      cellDelta,
+    }: {
+      rowDelta?: TableCellChangeDelta;
+      cellDelta?: TableCellChangeDelta;
+    }) => {
+      if (selectable) {
+        setActiveTableTile((currentActiveTile) => {
+          const { updatedRowIndex, updatedCellIndex } = getUpdatedActiveTile(
+            currentActiveTile,
+            {
+              rowDelta,
+              cellDelta,
+            },
+            { data, totalRows, totalColumns },
+          );
 
-      return { rowIndex: updatedRowIndex, cellIndex: updatedCellIndex };
-    });
-  };
+          return { rowIndex: updatedRowIndex, cellIndex: updatedCellIndex };
+        });
+      }
+    },
+    [selectable],
+  );
 
   useTableHotKeys(Key.Enter, () => {
-    selectCell(activeTableTile);
+    if (selectable) {
+      selectCell(activeTableTile);
+    }
   });
 
   useTableHotKeys(Key.ArrowUp, () => {
@@ -67,14 +75,19 @@ export const SelectableTable: FC<SelectableTableProps> = ({
     handleChangeActiveTile({ cellDelta: -1 });
   });
 
-  const getTableCell = (row: TableCell[], rowIndex: number) =>
+  const getTableCell = (
+    row: TableCell[],
+    rowIndex: number,
+    selectable: boolean,
+  ) =>
     row.map((cell, cellIndex) => {
       const active =
         activeTableTile.rowIndex === rowIndex &&
         activeTableTile.cellIndex === cellIndex;
       return (
         <li
-          className={getTableCellClassNames(active, cell.disabled)}
+          style={{ outlineColor: selectionColor }}
+          className={getTableCellClassNames(active, selectable, cell.disabled)}
           key={cellIndex}
         >
           {cell.content}
@@ -82,12 +95,14 @@ export const SelectableTable: FC<SelectableTableProps> = ({
       );
     });
 
-  const getTableContent = (tableData: TableCell[][]) =>
+  const getTableContent = (tableData: TableCell[][], selectable: boolean) =>
     tableData.map((row, rowIndex) => (
       <ul className={styles.tableRow} key={rowIndex}>
-        {getTableCell(row, rowIndex)}
+        {getTableCell(row, rowIndex, selectable)}
       </ul>
     ));
 
-  return <div className={styles.table}>{getTableContent(data)}</div>;
+  return (
+    <div className={styles.table}>{getTableContent(data, selectable)}</div>
+  );
 };

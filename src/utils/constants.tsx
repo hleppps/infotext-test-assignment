@@ -27,4 +27,9 @@ export enum Endpoints {
   PLAYERS = '/players',
 }
 
+export enum Colors {
+  LIME = '#00de00',
+  RED = '#FF0000',
+}
+
 export const MAXIMUM_PLAYERS = 2;
