@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/infotext-test-assignment/static/css/main.7d96d57d.css",
-    "main.js": "/infotext-test-assignment/static/js/main.1c9b6efa.js",
+    "main.js": "/infotext-test-assignment/static/js/main.557892d5.js",
     "static/js/432.a7970a40.chunk.js": "/infotext-test-assignment/static/js/432.a7970a40.chunk.js",
     "static/js/509.0a7b6837.chunk.js": "/infotext-test-assignment/static/js/509.0a7b6837.chunk.js",
     "static/media/pedestal-active.svg": "/infotext-test-assignment/static/media/pedestal-active.8266c5bb51157bd3c669feea63030ee0.svg",
@@ -37,12 +37,12 @@
     "static/media/character-3.png": "/infotext-test-assignment/static/media/character-3.1d036d01b74429e88d9f.png",
     "index.html": "/infotext-test-assignment/index.html",
     "main.7d96d57d.css.map": "/infotext-test-assignment/static/css/main.7d96d57d.css.map",
-    "main.1c9b6efa.js.map": "/infotext-test-assignment/static/js/main.1c9b6efa.js.map",
+    "main.557892d5.js.map": "/infotext-test-assignment/static/js/main.557892d5.js.map",
     "432.a7970a40.chunk.js.map": "/infotext-test-assignment/static/js/432.a7970a40.chunk.js.map",
     "509.0a7b6837.chunk.js.map": "/infotext-test-assignment/static/js/509.0a7b6837.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7d96d57d.css",
-    "static/js/main.1c9b6efa.js"
+    "static/js/main.557892d5.js"
   ]
 }
