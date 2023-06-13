@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { Character, Player } from '../../types/global';
 import { getPlayers, postPlayer } from '../utils/api/playerService';
-import { MAXIMUM_PLAYERS } from '../utils/constants';
+import { MAXIMUM_PLAYERS, Stores } from '../utils/constants';
 import { parseStringifiedArrayOfObjects } from '../utils/parseStringifiedArrayOfObjects';
 import { initialPlayersContextState, PlayersContext } from './playersContext';
 import { PlayersContext as PlayersContextType } from './types';
@@ -37,8 +37,12 @@ export const PlayersContextProvider: FC<PlayersContextProviderProps> = ({
   const handleUpdateStorage = (e: StorageEvent) => {
     const { key, newValue } = e;
 
-    if (key === 'players') {
-      setPlayers(parseStringifiedArrayOfObjects(newValue));
+    if (key === Stores.Players) {
+      const newPlayers = parseStringifiedArrayOfObjects(newValue);
+      setPlayers(newPlayers);
+      if (newPlayers.length === 0) {
+        setActivePlayer(undefined)
+      }
     }
   };
 

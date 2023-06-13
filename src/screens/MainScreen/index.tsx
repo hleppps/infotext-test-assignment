@@ -2,6 +2,7 @@ import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Character } from '../../../types/global';
+import { Button } from '../../components/ui/Button';
 import { Spinner } from '../../components/ui/Spinner';
 import { CharacterTile } from '../../components/unsorted/CharacterTile';
 import { SelectableTable } from '../../components/unsorted/SelectableTable';
@@ -12,6 +13,7 @@ import {
 import { SelectedCharacterSection } from '../../components/unsorted/SelectedCharacterSection';
 import { PlayersContext } from '../../context/playersContext';
 import { getCharacters } from '../../utils/api/characterService';
+import { deletePlayers } from '../../utils/api/playerService';
 import { arrayToMatrix } from '../../utils/arrayToMatrix';
 import { Colors, Paths } from '../../utils/constants';
 import styles from './styles.module.scss';
@@ -72,15 +74,25 @@ export const MainScreen: FC = () => {
   };
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
     if (charactersSelected) {
-      // setTimeout(() => {
-      //   navigate(Paths.VERSUS);
-      // }, 2000);
+      timeout = setTimeout(() => {
+        navigate(Paths.VERSUS);
+      }, 2000);
     }
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    };
   }, [charactersSelected]);
 
   // TODO: temp solution
   const dataLoading = players.length === 0 && !activePlayer;
+
+  const handleResetPlayers = () => {
+    deletePlayers();
+  };
 
   if (!charactersMatrix || !charactersMatrix.length || dataLoading) {
     return <Spinner />;
@@ -88,16 +100,8 @@ export const MainScreen: FC = () => {
 
   return (
     <div className={styles.container}>
-      {/* <h1 className={styles.title}>Select your fighter</h1> */}
-      <button
-        onClick={() => {
-          localStorage.removeItem('players');
-        }}
-      >
-        Reset players
-      </button>
-      <h1 className={styles.title}>{players.length}</h1>
-      <h1 className={styles.title}>{activePlayer?.id}</h1>
+      <h1 className={styles.title}>Select your fighter</h1>
+      <Button onClick={handleResetPlayers}>Reset players</Button>
       <div className={styles.content}>
         <SelectedCharacterSection
           title="Player 1"

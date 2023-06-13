@@ -8,15 +8,14 @@ export const getTableCellClassNames = (
   disabled = false,
 ) => {
   const defaultClassName = styles.tableCell;
+  if (disabled) {
+    return clsx(defaultClassName, styles.tableCellDisabled);
+  }
   if (!selectable) {
     return defaultClassName;
   }
   if (active) {
     return clsx(defaultClassName, styles.tableCellActive);
-  }
-
-  if (disabled) {
-    return clsx(defaultClassName, styles.tableCellDisabled);
   }
 
   return defaultClassName;

@@ -1,5 +1,5 @@
 import { Player } from '../../../types/global';
-import { Endpoints } from '../constants';
+import { Endpoints, Stores } from '../constants';
 import { client } from './client';
 
 export const getPlayers = (): Promise<Player[]> => {
@@ -16,11 +16,26 @@ export const postPlayer = (player: Player): Promise<Player[]> => {
     .then((data) => {
       window.dispatchEvent(
         new StorageEvent('storage', {
-          key: 'players',
+          key: Stores.Players,
           newValue: JSON.stringify(data),
         }),
       );
       return data;
     })
     .catch((error) => error.data);
+};
+
+export const deletePlayers = (): Promise<Player[]> => {
+  return client
+    .delete(Endpoints.PLAYERS)
+    .then((response) => response.data)
+    .then((data) => {
+      window.dispatchEvent(
+        new StorageEvent('storage', {
+          key: Stores.Players,
+          newValue: JSON.stringify(data.items),
+        }),
+      );
+      return data;
+    });
 };

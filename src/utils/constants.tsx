@@ -33,4 +33,8 @@ export enum Colors {
   RED = '#FF0000',
 }
 
+export enum Stores {
+  Players = 'players',
+}
+
 export const MAXIMUM_PLAYERS = 2;
