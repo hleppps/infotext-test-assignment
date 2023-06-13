@@ -7,6 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { App } from './components/app/App';
+import { GITHUB_PAGES_HOMEPAGE } from './utils/constants';
 
 await import('./mocks/browser')
   .then(({ worker }) => {
@@ -18,7 +19,7 @@ await import('./mocks/browser')
     }
     return worker.start({
       ...workerDefaultOptions,
-      serviceWorker: { url: '/infotext-test-assignment/mockServiceWorker.js' },
+      serviceWorker: { url: `${GITHUB_PAGES_HOMEPAGE}/mockServiceWorker.js` },
     });
   })
   .catch(console.error);

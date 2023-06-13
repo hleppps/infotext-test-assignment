@@ -9,6 +9,8 @@ export enum Paths {
   VERSUS = '/versus',
 }
 
+export const GITHUB_PAGES_HOMEPAGE = '/infotext-test-assignment';
+
 export const routes: RouteObject[] = [
   {
     path: Paths.HOME,
@@ -25,7 +27,7 @@ export enum HotkeysScopes {
 export enum Endpoints {
   CHARACTERS = '/characters',
   PLAYERS = '/players',
-  VERSUS_CODES = '/versus_codes'
+  VERSUS_CODES = '/versus_codes',
 }
 
 export enum Colors {
