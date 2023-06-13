@@ -17,7 +17,7 @@ export const VersusScreen: FC = () => {
   const [versusCodes, setVersusCodes] = useState<VersusCode[]>([]);
 
   const handleResetPlayers = () => {
-    navigate(Paths.HOME);
+    navigate(Paths.HOME, { replace: true });
     deletePlayers();
   };
 

@@ -77,7 +77,7 @@ export const MainScreen: FC = () => {
     let timeout: NodeJS.Timeout;
     if (charactersSelected) {
       timeout = setTimeout(() => {
-        navigate(Paths.VERSUS);
+        navigate(Paths.VERSUS, { replace: true });
       }, 2000);
     }
     return () => {

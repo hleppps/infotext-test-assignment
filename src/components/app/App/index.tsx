@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { HotkeysProvider } from 'react-hotkeys-hook';
 import { RouterProvider } from 'react-router';
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 
 import { PlayersContextProvider } from '../../../context/PlayersContextProvider';
 import { HotkeysScopes, routes } from '../../../utils/constants';
 import { Layout } from '../Layout';
 
-const router = createBrowserRouter(routes);
+const router = createHashRouter(routes);
 
 export const App: FC = () => {
   return (
