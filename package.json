@@ -1,5 +1,6 @@
 {
   "name": "infotex",
+  "homepage": "https://hleppps.github.io/infotext-test-assignment",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,6 +15,7 @@
     "@types/uuid": "9.0.2",
     "axios": "1.4.0",
     "clsx": "1.2.1",
+    "gh-pages": "5.0.0",
     "msw": "0.47.3",
     "normalize.css": "8.0.1",
     "prettier": "2.8.8",
@@ -43,7 +45,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
